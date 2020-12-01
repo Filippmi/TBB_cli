@@ -5,14 +5,17 @@ class Api
     end
 
     def self.load_data
+        puts "loading..."
+        sleep(2.5)
         get_characters
+        puts "Done."
     end
 
     def self.get_characters
         response = RestClient.get(base_url + '/characters')
         data = JSON.parse(response.body)
-        data.each do |c|
-            Characters.new(c["char_id"], c["name"], c["birthday"], c["occupation"], c["status"])
+        data.each do |character_data|
+            Characters.new(character_data)
         end
         # binding.pry
     end
