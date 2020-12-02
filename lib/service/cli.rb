@@ -10,7 +10,6 @@ class Cli
     def main_menu
         "\n" "Type 'characters' to get a list of all characters".each_char {|c| putc c ; sleep 0.02; $stdout.flush }
         "\n" "Or 'exit' to exit the program".each_char {|c| putc c ; sleep 0.02; $stdout.flush }
-        
         print "\n" ": "
         main_menu_input
     end
@@ -22,7 +21,7 @@ class Cli
         if input.downcase == "characters"
             system("clear")
             character_list
-            sleep(1)
+            # sleep(1)
             sub_menu 
         elsif
             input.downcase == "exit"
@@ -38,8 +37,7 @@ class Cli
         id = valid_id?(gets.chomp)
         character = Characters.find_by_id(id)
         character_details(character)
-        raise_continue
-        
+        raise_continue  
     end
 
     def character_list
@@ -49,15 +47,15 @@ class Cli
     end
 
     def sub_menu_selection
-        "Type in the index number to see more information about that character.".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
-        "\n" "select: ".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+        "\n" "Type in the index number to see more information about that character.".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+        "\n" "selection: ".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
     end
 
     def valid_id?(id)
         id = id.to_i
         if id < 1 || id > Characters.all.size
             raise_error
-            sub_menu
+            sub_menu_input
         end
         id
     end
@@ -76,7 +74,7 @@ class Cli
 
     def raise_error
         "\n" "please make a valid entry".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
-        print "\n" "select: "
+        "\n" "selection: ".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
     end
 
     def selection 
@@ -84,18 +82,21 @@ class Cli
     end
 
     def continue(choice)
-        if choice.downcase == "y"
+        if choice.downcase == "yes" || choice.downcase == "y"
             # character_list
             sub_menu
-        else
-            choice.downcase == "n"
+        elsif choice.downcase == "no" || choice.downcase == "n"
             exit_program
+        else
+            raise_error
+            continue(selection)
         end
     end
 
     def exit_program
-        puts "Thank you for checking out my program."
-        puts "Have a great day!"
+        "\n" "Thank you for checking out my program.".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+        "\n" "Have a great day!".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+        sleep(2.5)
         exit
     end
 
@@ -103,4 +104,10 @@ class Cli
         "Welcome to my Breaking Bad cli ".each_char {|c| putc c ; sleep 0.02; $stdout.flush  }
     end
 
+    def sub_menu_input
+        id = valid_id?(gets.chomp)
+        character = Characters.find_by_id(id)
+        character_details(character)
+        raise_continue  
+    end
 end
