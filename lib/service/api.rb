@@ -5,10 +5,11 @@ class Api
     end
 
     def self.load_data
-        puts "loading..."
-        sleep(2.5)
+        print "\n" "loading" 
+        "..........".each_char {|c| putc c ; sleep 0.3; $stdout.flush }
+        sleep(0.3)
         get_characters
-        puts "Done."
+        "Done".each_char {|c| putc c ; sleep 0.05; $stdout.flush }
     end
 
     def self.get_characters
@@ -19,4 +20,5 @@ class Api
         end
         # binding.pry
     end
+
 end

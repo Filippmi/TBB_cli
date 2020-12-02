@@ -2,35 +2,31 @@ class Cli
 
     def start
         system("clear")
-        puts "Welcome to my Breaking Bad cli"
-        sleep(1.5)
+        welcome
         Api.load_data
-
         main_menu
-        # binding.pry
     end
 
     def main_menu
-        sleep(1)
-        puts "Type 'characters' to get a list of all characters"
-        sleep(0.2)
-        puts "Or 'exit' to exit the program"
-
+        "\n" "Type 'characters' to get a list of all characters".each_char {|c| putc c ; sleep 0.02; $stdout.flush }
+        "\n" "Or 'exit' to exit the program".each_char {|c| putc c ; sleep 0.02; $stdout.flush }
+        
+        print "\n" ": "
         main_menu_input
     end
 
     def main_menu_input
         input = gets.chomp
+        
 
         if input.downcase == "characters"
             system("clear")
             character_list
+            sleep(1)
             sub_menu 
         elsif
             input.downcase == "exit"
-            puts "Thank you for checking out my program."
-            puts "Have a great day!"
-            exit
+            exit_program
         else
             raise_error
             main_menu
@@ -43,47 +39,68 @@ class Cli
         character = Characters.find_by_id(id)
         character_details(character)
         raise_continue
+        
     end
 
     def character_list
         Characters.all.each.with_index(1) do |character, index|
-            puts "#{index}.) #{character.name}"
+            puts "#{index}.) #{character.name}".each_char {|c| sleep 0.002; $stdout.flush}
         end
     end
 
     def sub_menu_selection
-        puts "Type in a character by number for more info."
+        "Type in the index number to see more information about that character.".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+        "\n" "select: ".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
     end
 
     def valid_id?(id)
         id = id.to_i
+        if id < 1 || id > Characters.all.size
+            raise_error
+            sub_menu
+        end
+        id
     end
 
     def character_details(character)
-        puts "Name:   #{character.name}"
-        puts "Birthday:  #{character.birthday}"
-        puts "Occupation:  #{character.occupation}"
-        puts "Status:  #{character.status}"
+       "Name:   #{character.name}".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+       "\n" "Birthday:  #{character.birthday}".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+       "\n" "Occupation:  #{character.occupation}".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+       "\n" "Status:  #{character.status}".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
     end
 
     def raise_continue
-        puts "Would you like information about another character?     y/n"
+        puts "\n" "Would you like information about another character?     y/n"
+        continue(selection)
     end
 
     def raise_error
-        puts "please make a valid entry"
+        "\n" "please make a valid entry".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+        print "\n" "select: "
     end
 
     def selection 
         gets.chomp
     end
 
-    def continue?(selection)
-        if selection.downcase == "y"
-            main_menu
-            main_menu_input
+    def continue(choice)
+        if choice.downcase == "y"
+            # character_list
+            sub_menu
         else
-            exit
+            choice.downcase == "n"
+            exit_program
         end
     end
+
+    def exit_program
+        puts "Thank you for checking out my program."
+        puts "Have a great day!"
+        exit
+    end
+
+    def welcome
+        "Welcome to my Breaking Bad cli ".each_char {|c| putc c ; sleep 0.02; $stdout.flush  }
+    end
+
 end
