@@ -5,7 +5,7 @@ class Api
     end
 
     def self.load_data
-        print "\n" "loading" 
+        print "\n" "Loading" 
         "..........".each_char {|c| putc c ; sleep 0.3; $stdout.flush }
         sleep(0.3)
         get_characters

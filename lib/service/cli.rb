@@ -9,7 +9,7 @@ class Cli
 
     def main_menu
         "\n" "Type 'characters' to get a list of all characters".each_char {|c| putc c ; sleep 0.02; $stdout.flush }
-        "\n" "Or 'exit' to exit the program".each_char {|c| putc c ; sleep 0.02; $stdout.flush }
+        "\n" "Or 'exit' to exit the program".each_char {|c| putc c ; sleep 0.02; $stdout.flush } 
         print "\n" ": "
         main_menu_input
     end
@@ -48,13 +48,13 @@ class Cli
 
     def sub_menu_selection
         "\n" "Type in the index number to see more information about that character.".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
-        "\n" "selection: ".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+        "\n" "Selection: ".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
     end
 
     def valid_id?(id)
         id = id.to_i
         if id < 1 || id > Characters.all.size
-            raise_error
+            raise_error_validation
             sub_menu_input
         end
         id
@@ -72,9 +72,9 @@ class Cli
         continue(selection)
     end
 
-    def raise_error
-        "\n" "please make a valid entry".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
-        "\n" "selection: ".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+    def raise_error_validation
+        "\n" "Please make a valid entry".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+        "\n" "Selection: ".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
     end
 
     def selection 
@@ -94,14 +94,14 @@ class Cli
     end
 
     def exit_program
-        "\n" "Thank you for checking out my program.".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
-        "\n" "Have a great day!".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+        "\n" "Thank you for checking out my program.".each_char {|c| putc c ; sleep 0.01; $stdout.flush}
+        "\n" "Have a great day!".each_char {|c| putc c ; sleep 0.01; $stdout.flush}
         sleep(2.5)
         exit
     end
 
     def welcome
-        "Welcome to my Breaking Bad cli ".each_char {|c| putc c ; sleep 0.02; $stdout.flush  }
+       "Welcome to my Breaking Bad cli ".each_char {|c| putc c ; sleep 0.02; $stdout.flush}
     end
 
     def sub_menu_input
@@ -109,5 +109,9 @@ class Cli
         character = Characters.find_by_id(id)
         character_details(character)
         raise_continue  
+    end
+
+    def raise_error
+        "\n" "Please type 'yes' or 'no': ".each_char {|c| putc c ; sleep 0.01; $stdout.flush}
     end
 end
