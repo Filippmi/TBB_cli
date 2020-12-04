@@ -8,8 +8,8 @@ class Cli
     end
 
     def main_menu
-        "\n" "Type 'characters' to get a list of all characters".each_char {|c| putc c ; sleep 0.02; $stdout.flush }
-        "\n" "Or 'exit' to exit the program".each_char {|c| putc c ; sleep 0.02; $stdout.flush } 
+        "\n" "Type 'characters' to get a list of all characters".each_char {|c| putc c ; sleep 0.02; $stdout.flush}
+        "\n" "Or 'exit' to exit the program".each_char {|c| putc c ; sleep 0.02; $stdout.flush} 
         print "\n" ": "
         main_menu_input
     end
@@ -27,8 +27,8 @@ class Cli
             input.downcase == "exit"
             exit_program
         else
-            raise_error
-            main_menu
+            raise_error_validation
+            main_menu_input
         end
     end
 
@@ -47,8 +47,8 @@ class Cli
     end
 
     def sub_menu_selection
-        "\n" "Type in the index number to see more information about that character.".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
-        "\n" "Selection: ".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+        "\n" "Type in the index number to see more information about that character.".each_char {|c| putc c ; sleep 0.01; $stdout.flush}
+        "\n" "Selection: ".each_char {|c| putc c ; sleep 0.01; $stdout.flush}
     end
 
     def valid_id?(id)
@@ -61,10 +61,10 @@ class Cli
     end
 
     def character_details(character)
-       "Name:   #{character.name}".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
-       "\n" "Birthday:  #{character.birthday}".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
-       "\n" "Occupation:  #{character.occupation}".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
-       "\n" "Status:  #{character.status}".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+       "Name:   #{character.name}".each_char {|c| putc c ; sleep 0.01; $stdout.flush}
+       "\n" "Birthday:  #{character.birthday}".each_char {|c| putc c ; sleep 0.01; $stdout.flush}
+       "\n" "Occupation:  #{character.occupation}".each_char {|c| putc c ; sleep 0.01; $stdout.flush}
+       "\n" "Status:  #{character.status}".each_char {|c| putc c ; sleep 0.01; $stdout.flush}
     end
 
     def raise_continue
@@ -73,8 +73,8 @@ class Cli
     end
 
     def raise_error_validation
-        "\n" "Please make a valid entry".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
-        "\n" "Selection: ".each_char {|c| putc c ; sleep 0.01; $stdout.flush }
+        "\n" "Please make a valid entry".each_char {|c| putc c ; sleep 0.01; $stdout.flush}
+        "\n" "Selection: ".each_char {|c| putc c ; sleep 0.01; $stdout.flush}
     end
 
     def selection 

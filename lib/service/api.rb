@@ -9,7 +9,7 @@ class Api
         "..........".each_char {|c| putc c ; sleep 0.3; $stdout.flush }
         sleep(0.3)
         get_characters
-        print "\n" "Done".each_char {|c| sleep 0.05; $stdout.flush }
+        "\n" "Done".each_char {|c| putc c ; sleep 0.05; $stdout.flush }
     end
 
     def self.get_characters
